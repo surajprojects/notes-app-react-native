@@ -1,15 +1,26 @@
-import { Text, View } from "react-native";
-import { Button } from "@react-navigation/elements";
-import { useNavigation } from "@react-navigation/native";
+import { ScrollView, View } from "react-native";
+import Note from "../components/note";
 
 export default function NotesListScreen() {
-  const navigation = useNavigation();
   return (
     <>
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text>Tiger Insights</Text>
-        <Button onPress={() => navigation.navigate("Add Note")}>Add Note</Button>
-      </View>
+      <ScrollView contentContainerClassName="p-2 pb-20 gap-6" className="p-6 flex-1 gap-6 bg-white">
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+        <Note />
+      </ScrollView>
     </>
   );
 }

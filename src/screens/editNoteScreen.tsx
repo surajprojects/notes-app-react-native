@@ -1,20 +1,25 @@
 import { notesManager } from "../store/data";
-import { useLayoutEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { TextInput, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import SaveNoteBtn from "../components/buttons/saveNoteBtn";
 
-export default function AddNoteScreen() {
+export default function EditNoteScreen() {
+  const route = useRoute();
   const navigation = useNavigation();
+  const { id } = route.params as { id: string };
 
   const [noteData, setNoteData] = useState({
     title: "",
     description: "",
   });
 
-  async function handleSave() {
+  async function handleUpdate() {
     try {
-      await notesManager.addNote(noteData);
+      await notesManager.updateNote({
+        id,
+        ...noteData,
+      });
       navigation.goBack();
     } catch (error) {
       console.error(error);
@@ -28,9 +33,29 @@ export default function AddNoteScreen() {
     }));
   };
 
+  const getData = (id: string) => {
+    try {
+      const data = notesManager.getNote(id);
+      if (data)
+        setNoteData((prevData) => {
+          return { ...prevData, title: data.title, description: data.description };
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (route.params) {
+        getData(String(id));
+      }
+    }, []),
+  );
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <SaveNoteBtn onPress={handleSave} />,
+      headerRight: () => <SaveNoteBtn onPress={handleUpdate} />,
     });
   }, [noteData]);
   return (

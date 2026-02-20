@@ -1,6 +1,7 @@
 import "./src/global.css";
 import React, { useEffect } from "react";
 import { StatusBar } from "react-native";
+import { notesManager } from "./src/store/data";
 import RNBootSplash from "react-native-bootsplash";
 import RootNavigator from "./src/navigation/rootNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -8,6 +9,13 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 export default function App() {
   useEffect(() => {
     RNBootSplash.hide({ fade: true });
+  }, []);
+
+  useEffect(() => {
+    const load = async () => {
+      await notesManager.init();
+    };
+    load();
   }, []);
   return (
     <>

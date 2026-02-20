@@ -7,7 +7,7 @@ import SaveNoteBtn from "../components/buttons/saveNoteBtn";
 export default function EditNoteScreen() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { id } = route.params as { id: string };
+  const { id } = route.params ? (route.params as { id: string }) : { id: "" };
 
   const [noteData, setNoteData] = useState({
     title: "",
@@ -47,10 +47,8 @@ export default function EditNoteScreen() {
 
   useFocusEffect(
     useCallback(() => {
-      if (route.params) {
-        getData(String(id));
-      }
-    }, []),
+      getData(id);
+    }, [id]),
   );
 
   useLayoutEffect(() => {

@@ -1,12 +1,12 @@
-import { Link } from "@react-navigation/native";
-import { CirclePlus } from "lucide-react-native";
+import { Pressable } from "react-native";
+import { PencilLineIcon } from "lucide-react-native";
 
-export default function EditNoteBtn({ id }: { id: string }) {
+export default function EditNoteBtn({ onPress }: { onPress: () => void }) {
   return (
     <>
-      <Link params={id} screen={"Edit Note"} className="p-2 pr-1 rounded-full">
-        <CirclePlus className="size-14" />
-      </Link>
+      <Pressable onPress={onPress} className="p-2 pr-1 rounded-full">
+        <PencilLineIcon className="size-14" />
+      </Pressable>
     </>
   );
 }

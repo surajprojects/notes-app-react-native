@@ -1,6 +1,6 @@
 import Note from "../components/note";
-import { useState, useCallback } from "react";
 import { notesManager } from "../store/data";
+import { useState, useCallback } from "react";
 import { ScrollView, Text } from "react-native";
 import { AllNotes } from "../utils/types/notesType";
 import { useFocusEffect } from "@react-navigation/native";

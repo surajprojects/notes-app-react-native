@@ -1,14 +1,16 @@
 import { notesManager } from "../store/data";
-import { useCallback, useLayoutEffect, useState } from "react";
 import { Note } from "../utils/types/notesType";
+import { Nav } from "../utils/types/navigation";
 import { ScrollView, Text, View } from "react-native";
-import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
+import EditNoteBtn from "../components/buttons/editNoteBtn";
+import { useCallback, useLayoutEffect, useState } from "react";
 import DeleteNoteBtn from "../components/buttons/deleteNoteBtn";
+import { useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 
 export default function NoteScreen() {
   const route = useRoute();
-  const navigation = useNavigation();
-  const { id } = route.params as { id: string };
+  const navigation = useNavigation<Nav>();
+  const { id } = route.params ? (route.params as { id: string }) : { id: "" };
 
   const [noteData, setNoteData] = useState<Note>({
     id: "",
@@ -29,10 +31,8 @@ export default function NoteScreen() {
 
   useFocusEffect(
     useCallback(() => {
-      if (route.params) {
-        getData(String(id));
-      }
-    }, []),
+      getData(id);
+    }, [id]),
   );
 
   async function handleDelete() {
@@ -47,9 +47,14 @@ export default function NoteScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <>
+        <View>
+          <EditNoteBtn
+            onPress={() => {
+              navigation.navigate("Edit Note", { id });
+            }}
+          />
           <DeleteNoteBtn onPress={handleDelete} />
-        </>
+        </View>
       ),
     });
   }, [noteData]);

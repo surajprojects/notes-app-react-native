@@ -1,11 +1,11 @@
 import NoteScreen from "../screens/noteScreen";
 import AddNoteScreen from "../screens/addNoteScreen";
+import EditNoteScreen from "../screens/editNoteScreen";
 import NotesListScreen from "../screens/notesListScreen";
 import AddNoteBtn from "../components/buttons/addNoteBtn";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../utils/types/navigation";
-import EditNoteScreen from "../screens/editNoteScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function RootNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();

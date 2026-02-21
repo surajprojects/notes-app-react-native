@@ -47,7 +47,7 @@ export default function NoteScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <View>
+        <View className="flex flex-row gap-x-4">
           <EditNoteBtn
             onPress={() => {
               navigation.navigate("Edit Note", { id });

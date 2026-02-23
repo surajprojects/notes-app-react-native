@@ -1,4 +1,5 @@
 import NoteScreen from "../screens/noteScreen";
+import BootSplash from "react-native-bootsplash";
 import AddNoteScreen from "../screens/addNoteScreen";
 import EditNoteScreen from "../screens/editNoteScreen";
 import NotesListScreen from "../screens/notesListScreen";
@@ -11,7 +12,7 @@ export default function RootNavigator() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer onReady={async () => await BootSplash.hide({ fade: true })}>
         <Stack.Navigator initialRouteName="Notes">
           <Stack.Screen
             name="Notes"
